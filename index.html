@@ -11,7 +11,14 @@
       color: #2c2c2c;
       margin: 0;
       padding: 0;
+      transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
     }
+
+    body.vhs-fondo {
+      background: radial-gradient(circle at center, #111 0%, #000 100%);
+      color: #0ff;
+    }
+
     header {
       background-color: #2e3b4e;
       color: white;
@@ -45,12 +52,54 @@
     .redes a:hover {
       text-decoration: underline;
     }
+
+    @keyframes flotar {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes vibrar {
+      0% { transform: translate(0); }
+      25% { transform: translate(-2px, 2px); }
+      50% { transform: translate(2px, -2px); }
+      75% { transform: translate(-2px, 2px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes neon {
+      0%, 100% { box-shadow: 0 0 10px #00f, 0 0 20px #0ff; }
+      50% { box-shadow: 0 0 20px #00f, 0 0 40px #0ff; }
+    }
+
     img.tecnologia {
       width: 100%;
       max-width: 600px;
       display: block;
       margin: 20px auto;
       border-radius: 8px;
+      animation: flotar 3s ease-in-out infinite;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .vhs {
+      animation: vibrar 0.2s linear infinite, neon 2s ease-in-out infinite;
+    }
+
+    .boton-vhs {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #2e3b4e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .boton-vhs:hover {
+      background-color: #1f2a3a;
     }
   </style>
 </head>
@@ -63,7 +112,8 @@
   <section>
     <h2>Sobre mí</h2>
     <p>Soy un apasionado de la Informática y la tecnología.</p>
-    <img src="tecnologia.jpg" alt="Collage de tecnología e informática" class="tecnologia">
+    <img src="tecnologia.jpg" alt="Collage de tecnología e informática" class="tecnologia" id="imagenTecnologia">
+    <button class="boton-vhs" onclick="activarVHS()">Activar/Desactivar Modo VHS</button>
   </section>
 
   <section class="proyectos">
@@ -71,15 +121,15 @@
     <ul>
       <li>Ex Jefe de Informática en Maritano y Ebensperger</li>
       <li>Reparación de Notebook, Actualización de Equipos, Memoria y Disco Duro SSD</li>
-      <li>Instalación de Sistemas Operativos Wimdows y Softwares</li>
+      <li>Instalación de Sistemas Operativos Windows y Softwares</li>
       <li>Soporte en Informática</li>
     </ul>
   </section>
 
   <section class="contacto">
     <h2>Contacto</h2>
-    <p> Correo electrónico <strong>jorge.larenas@outlook.com</strong></p>
-    <p> Página Web <strong>https://jorgelarenas.github.io/jorge-larenas</strong></p>
+    <p>Correo electrónico <strong>jorge.larenas@outlook.com</strong></p>
+    <p>Página Web <strong>https://jorgelarenas.github.io/jorge-larenas</strong></p>
     <div class="redes">
       <a href="#">Instagram</a>
       <a href="#">Facebook</a>
@@ -90,11 +140,34 @@
   <footer>
     <p>© 2025 Jorge Larenas. Todos los derechos reservados.</p>
   </footer>
+
+  <!-- 🎶 Música de fondo techno (loop) -->
+  <audio id="musicaVHS" src="techno.mp3" loop></audio>
+
+  <!-- 🔊 Efecto sonoro al activar -->
+  <audio id="sonidoActivacion" src="glitch.mp3"></audio>
+
+  <script>
+    function activarVHS() {
+      const imagen = document.getElementById('imagenTecnologia');
+      const cuerpo = document.body;
+      const musica = document.getElementById('musicaVHS');
+      const sonido = document.getElementById('sonidoActivacion');
+
+      imagen.classList.toggle('vhs');
+      cuerpo.classList.toggle('vhs-fondo');
+
+      // Activar sonido de efecto
+      sonido.play();
+
+      // Activar o detener música
+      if (cuerpo.classList.contains('vhs-fondo')) {
+        musica.play();
+      } else {
+        musica.pause();
+        musica.currentTime = 0;
+      }
+    }
+  </script>
 </body>
-
 </html>
-
-
-
-
-
