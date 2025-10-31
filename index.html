@@ -25,18 +25,22 @@
       padding: 40px 20px;
       text-align: center;
     }
+
     section {
       padding: 20px;
     }
+
     .proyectos ul {
       list-style-type: square;
       padding-left: 20px;
     }
+
     .contacto {
       background-color: #e6e6e6;
       padding: 20px;
       border-top: 2px solid #2e3b4e;
     }
+
     footer {
       background-color: #1f1f1f;
       color: white;
@@ -44,11 +48,13 @@
       padding: 10px;
       font-size: 0.9em;
     }
+
     .redes a {
       margin: 0 10px;
       color: #2e3b4e;
       text-decoration: none;
     }
+
     .redes a:hover {
       text-decoration: underline;
     }
@@ -101,9 +107,63 @@
     .boton-vhs:hover {
       background-color: #1f2a3a;
     }
+
+    /* 🕰️ Estilos del reloj */
+    #clock-container {
+      font-family: 'Courier New', monospace;
+      background-color: #2e3b4e;
+      color: #0ff;
+      text-align: center;
+      padding: 10px 0;
+      border-bottom: 2px solid #0ff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    #date {
+      font-size: 18px;
+    }
+
+    #clock {
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+
+    /* 📜 Cuadro lateral animado */
+    #info-box {
+      position: fixed;
+      right: 0;
+      top: 150px;
+      width: 300px;
+      height: 200px;
+      overflow: hidden;
+      background-color: #111;
+      color: #0f0;
+      font-family: 'Arial', sans-serif;
+      border-left: 2px solid #0f0;
+      padding: 10px;
+      z-index: 999;
+    }
+
+    #scroll-text {
+      position: relative;
+      animation: scrollUp 10s linear infinite;
+      white-space: nowrap;
+      font-size: 16px;
+    }
+
+    @keyframes scrollUp {
+      0% { top: 100%; }
+      100% { top: -100%; }
+    }
   </style>
 </head>
 <body>
+  <!-- 🕰️ Fecha y reloj clásico -->
+  <div id="clock-container">
+    <div id="date"></div>
+    <div id="clock"></div>
+  </div>
+
   <header>
     <h1>Jorge E. Larenas J.</h1>
     <p>Ingeniero en Informática</p>
@@ -147,6 +207,13 @@
   <!-- 🔊 Efecto sonoro al activar -->
   <audio id="sonidoActivacion" src="glitch.mp3"></audio>
 
+  <!-- 📜 Cuadro lateral con texto animado -->
+  <div id="info-box">
+    <div id="scroll-text">
+      AQUI SE AGREGARA INFORMACION RELEVANTE Y CONSEJOS INFORMATICOS DIARIAMENTE.
+    </div>
+  </div>
+
   <script>
     function activarVHS() {
       const imagen = document.getElementById('imagenTecnologia');
@@ -157,10 +224,8 @@
       imagen.classList.toggle('vhs');
       cuerpo.classList.toggle('vhs-fondo');
 
-      // Activar sonido de efecto
       sonido.play();
 
-      // Activar o detener música
       if (cuerpo.classList.contains('vhs-fondo')) {
         musica.play();
       } else {
@@ -168,6 +233,19 @@
         musica.currentTime = 0;
       }
     }
+
+    function actualizarReloj() {
+      const ahora = new Date();
+      const fecha = ahora.toLocaleDateString('es-CL', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      const hora = ahora.toLocaleTimeString('es-CL');
+      document.getElementById('date').textContent = fecha;
+      document.getElementById('clock').textContent = hora;
+    }
+
+    setInterval(actualizarReloj, 1000);
+    actualizarReloj();
   </script>
 </body>
 </html>
+
+
